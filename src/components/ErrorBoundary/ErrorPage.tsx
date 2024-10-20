@@ -1,9 +1,13 @@
 import { Box, Button, Typography } from '@mui/material';
 import { purple } from '@mui/material/colors';
 
-const primary = purple[500]; // #f44336
+import { errorBoundary } from '../../constants';
+import { IError } from './model';
 
-const ErrorPage = () => (
+const primary = purple[500]; // #f44336
+const { headerRole, header } = errorBoundary
+
+const ErrorPage = ({ error }: { error?: IError }) => (
     <Box
       sx={{
         display: 'flex',
@@ -14,12 +18,13 @@ const ErrorPage = () => (
         backgroundColor: primary,
       }}
     >
-      <Typography variant="h1" style={{ color: 'white' }}>
-        404
+      <Typography variant="h1" style={{ color: 'white' }} role={headerRole}>
+        {header}
       </Typography>
-      <Typography variant="h6" style={{ color: 'white' }}>
-        The page you’re looking for doesn’t exist.
-      </Typography>
+      <Box>
+        {error && error.errorStack}
+        <Button variant="contained">Report this bag</Button>
+      </Box>
       <Button variant="contained">Back Home</Button>
     </Box>
   );
