@@ -5,7 +5,10 @@ import reducer, {
   removeCompletedTasks,
   setLoadStatus,
   setError,
+  handleTaskInput,
 } from './tasksSlice';
+
+import { TaskInputLng } from '../constants';
 
 const mockId = '1234';
 jest.mock('nanoid', () => {
@@ -69,5 +72,17 @@ describe('unit test of allTasks slice', () => {
     const error = Error('Something went wrong');
     const slice = reducer(state, setError(error));
     expect(slice.error).toEqual(error);
+  });
+
+  it('should handle input not string error', () => {
+    const errorIsNumber = 1;
+    const sliceCaseNotNumber = reducer(state, handleTaskInput(errorIsNumber));
+    expect(sliceCaseNotNumber.error).toEqual(TaskInputLng.NOT_STRING_ERROR);
+  });
+
+  it('should handle input too big error', () => {
+    const errorTooBigInput = 'x'.repeat(51);
+    const sliceCaseTooBig = reducer(state, handleTaskInput(errorTooBigInput));
+    expect(sliceCaseTooBig.error).toEqual(TaskInputLng.TOO_BIG_INPUT);
   });
 });
