@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
+import isString from 'lodash.isstring';
+import { TaskInputLng } from '../constants';
 
 export interface ITask {
   task_id: ReturnType<typeof nanoid>;
@@ -7,15 +9,17 @@ export interface ITask {
   isCompleted: boolean;
 }
 
-export type ToDosState = {
+export type TasksState = {
   allTasks: ITask[];
+  taskInInput: string;
   incomletedTasksCount: number;
   isLoad: boolean;
-  error: null;
+  error: null | string;
 };
 
-export const todosInitialState: ToDosState = {
+export const todosInitialState: TasksState = {
   allTasks: [],
+  taskInInput: '',
   incomletedTasksCount: 0,
   isLoad: false,
   error: null,
@@ -25,13 +29,26 @@ export const todosSlice = createSlice({
   name: 'tasks',
   initialState: todosInitialState,
   reducers: {
-    addTask: (state, { payload }) => {
+    handleTaskInput: (state, { payload }) => {
+      if (!isString(payload)) {
+        state.error = TaskInputLng.NOT_STRING_ERROR;
+        return;
+      }
+      if (payload.length > 50) {
+        state.error = TaskInputLng.TOO_BIG_INPUT;
+        return;
+      }
+      state.error = null;
+      state.taskInInput = payload;
+    },
+    addTask: (state) => {
       const newTask = {
         task_id: nanoid(),
-        description: payload,
+        description: state.taskInInput,
         isCompleted: false,
       };
       state.allTasks.push(newTask);
+      state.taskInInput = '';
       state.incomletedTasksCount += 1;
     },
     markTaskCompleted: (state, { payload }) => {
@@ -58,6 +75,7 @@ export const todosSlice = createSlice({
 
 export const {
   addTask,
+  handleTaskInput,
   markTaskCompleted,
   removeCompletedTasks,
   setLoadStatus,
