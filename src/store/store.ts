@@ -1,11 +1,12 @@
 import { configureStore, ConfigureStoreOptions } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import tasks from './tasksSlice';
 
 export const createStore = (
   options?: ConfigureStoreOptions['preloadedState'] | undefined
 ) =>
   configureStore({
-    reducer: {},
+    reducer: { tasks },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
     ...options,
   });

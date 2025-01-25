@@ -9,7 +9,7 @@ export const TaskInputLng: constnat = {
   LABEL: 'Task description',
   PLACEHOLDER: 'Type in here…',
   ON_ERROR: 'Oh no, error found!',
-  COMMON_ERROR_DESCRIPTION: 'Opps! something is wrong.',
+  COMMON_ERROR_DESCRIPTION: 'Opps! Something went wrong.',
   NOT_STRING_ERROR: 'Input should be a string',
   TOO_BIG_INPUT: 'Input should be no 50 charts long',
 };
