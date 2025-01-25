@@ -1,4 +1,4 @@
-import { constnat } from './types';
+export type constnat = { [key: string]: string };
 
 export const errorBoundary: constnat = {
   header: 'Something went wrong',
@@ -16,5 +16,15 @@ export const TaskInputLng: constnat = {
 
 export const TaskInputControlls: constnat = {
   ADD_TASK: 'Add task',
+  MARK_DONE: 'Done',
+  DELETE_TASKS: 'Delete completed task',
   CLEAR: 'Clear',
+};
+
+export const TaskState: constnat = {
+  ALL: 'All',
+  REST: ' tasks left',
+  COMPLETED: 'Completed',
+  ACTIVE: 'Active',
+  DELETED: 'Clear completed',
 };

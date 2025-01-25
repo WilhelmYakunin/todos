@@ -9,14 +9,8 @@ export interface ITask {
   isCompleted: boolean;
 }
 
-export enum Tabs {
-  'allTasks' = 'allTasks',
-  'incompleted' = 'incompleted',
-  'completed' = 'completed',
-}
-
 export type TasksState = {
-  allTasks: ITask[];
+  tasks: ITask[];
   tab: 0;
   taskInInput: string;
   incomletedTasksCount: number;
@@ -25,7 +19,18 @@ export type TasksState = {
 };
 
 export const todosInitialState: TasksState = {
-  allTasks: [],
+  tasks: [
+    {
+      task_id: nanoid(),
+      description: 'Make test assigment',
+      isCompleted: false,
+    },
+    {
+      task_id: nanoid(),
+      description: 'Write test coverage',
+      isCompleted: true,
+    },
+  ],
   tab: 0,
   taskInInput: '',
   incomletedTasksCount: 0,
@@ -61,12 +66,12 @@ export const todosSlice = createSlice({
         description: state.taskInInput,
         isCompleted: false,
       };
-      state.allTasks.push(newTask);
+      state.tasks.push(newTask);
       state.taskInInput = todosInitialState.taskInInput;
       state.incomletedTasksCount += 1;
     },
     markTaskCompleted: (state, { payload }) => {
-      state.allTasks.map((task) => {
+      state.tasks.map((task) => {
         if (task.task_id === payload) {
           task.isCompleted = true;
           state.incomletedTasksCount -= 1;
@@ -74,9 +79,7 @@ export const todosSlice = createSlice({
       });
     },
     removeCompletedTasks: (state) => {
-      state.allTasks = state.allTasks.filter(
-        (task) => task.isCompleted === false
-      );
+      state.tasks = state.tasks.filter((task) => task.isCompleted === false);
     },
     setLoadStatus: (state, { payload }) => {
       state.isLoad = payload;
