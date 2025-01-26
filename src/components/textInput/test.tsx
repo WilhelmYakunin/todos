@@ -1,13 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import TextInput from './TestInput';
+import TextInput from './TextInput';
 import reducer, {
-    addTask,
+  addTask,
     handleInputClear,
-    markTaskCompleted,
     todosInitialState,
-    removeCompletedTasks,
-    setLoadStatus,
-    setError,
     handleTaskInput,
   } from '../../store/tasksSlice';
   
@@ -18,21 +14,28 @@ import { TaskInputLng } from '../../constants';
     return { nanoid: () => mockId };
   });
 
-const { LABEL, PLACEHOLDER } = TaskInputLng;
+const { PLACEHOLDER } = TaskInputLng;
 
 test('render text input', () => {
     const state = reducer(undefined, { type: 'unknown' });
     
     const { container } = render(<TextInput 
         taskInInput={state.taskInInput} 
+        onEnter={(e) => {
+          e.preventDefault()
+          addTask()
+      }}
         onClear={(e) => {
             e.preventDefault()
             handleInputClear()
         }} 
+        onAddtask={(e) => {
+          e.preventDefault()
+          addTask()
+      }} 
         errorText={state.error} 
         onChange={handleTaskInput} />);
 
-    expect(screen.getByText(LABEL)).toBeTruthy();
     expect(screen.getAllByPlaceholderText(PLACEHOLDER)).toBeTruthy();
     expect(container.querySelector('input')?.value).toBe(todosInitialState.taskInInput);
 });

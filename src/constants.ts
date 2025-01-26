@@ -7,7 +7,7 @@ export const errorBoundary: constnat = {
 
 export const TaskInputLng: constnat = {
   LABEL: 'Task description',
-  PLACEHOLDER: 'Type in here…',
+  PLACEHOLDER: 'Type desription here…',
   ON_ERROR: 'Oh no, error found!',
   COMMON_ERROR_DESCRIPTION: 'Opps! Something went wrong.',
   NOT_STRING_ERROR: 'Input should be a string',

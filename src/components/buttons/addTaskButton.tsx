@@ -1,10 +1,7 @@
 import Button from '@mui/material/Button'
 import { TaskInputControlls } from '../../constants'
-import { AddTask } from '@mui/icons-material'
 
-const ClearButton = ({ onAddTask } : { onAddTask: React.MouseEventHandler<HTMLButtonElement> }) => 
-    <Button onClick={onAddTask}>{TaskInputControlls.ADD_TASK}
-       <AddTask />
-    </Button>
+const AddTaskButton = ({ onAddTask } : { onAddTask: React.MouseEventHandler<HTMLButtonElement> }) => 
+    <Button type='submit' onClick={onAddTask}>{TaskInputControlls.ADD_TASK}</Button>
 
-export default ClearButton
+export default AddTaskButton

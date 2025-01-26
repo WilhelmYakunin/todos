@@ -30,21 +30,21 @@ export const todosSlice = createSlice({
   initialState: todosInitialState,
   reducers: {
     handleTaskInput: (state, { payload }) => {
-      if (!isString(payload)) {
-        state.error = TaskInputLng.NOT_STRING_ERROR;
-        return;
-      }
       if (payload.length > 50) {
         state.error = TaskInputLng.TOO_BIG_INPUT;
         return;
       }
       state.error = null;
-      state.taskInInput += payload;
+      state.taskInInput = payload;
     },
     handleInputClear: (state) => {
       state.taskInInput = todosInitialState.taskInInput;
     },
     addTask: (state) => {
+      if (!isString(state.taskInInput) || state.taskInInput.length === 0) {
+        state.error = TaskInputLng.NOT_STRING_ERROR;
+        return;
+      }
       const newTask = {
         task_id: nanoid(),
         description: state.taskInInput,
