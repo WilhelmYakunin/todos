@@ -4,21 +4,21 @@ import CssBaseline from '@mui/material/CssBaseline';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Badge, Typography } from '@mui/material';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import { TaskState } from '../../constants';
 import ListItemText from '@mui/material/ListItemText';
-import { ITask } from '../../store/tasksSlice';
+import DeleteTaskButton from '../../components/buttons/deleteCompletedButton';
 
-import { useTypedSelector } from '../../store/store';
-import { getAllTasks, getAllTasksError } from '../../store/selectors';
+import { ITask } from '../../store/tasksSlice';
+import { useAppDispatch, useTypedSelector } from '../../store/store';
+import { getAllTasks } from '../../store/selectors';
+import { removeCompletedTasks } from '../../store/tasksSlice';
 
 
 const ButtomNavigation = () => {
     const tasks = useTypedSelector(getAllTasks)
     const tasksRemainCount = useMemo(() => tasks.filter((task: ITask) => !task.isCompleted).length, [tasks])
-    const error = useTypedSelector(getAllTasksError)
 
     const [activeButton, setValue] = useState(TaskState.ALL); 
     const ref = useRef<HTMLDivElement>(null);
@@ -39,11 +39,14 @@ const ButtomNavigation = () => {
         setVisibleTasks(() => switchTasks());
     }, [switchTasks]);
 
+    const dispatch = useAppDispatch();
+    const deletedComplited = useCallback(() => dispatch(removeCompletedTasks()), [dispatch])
+
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
       <List>
-        {visibleTasks.map((task: ITask) => <ListItemText>{task.description}</ListItemText>)}
+        {visibleTasks.map((task: ITask) => <ListItemText key={task.task_id}>{task.description}</ListItemText>)}
       </List>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', alignItems: 'center' }} elevation={3}>
         <Box sx={{ ml: '20px', display: 'flex', alignItems: 'center' }} >
@@ -63,6 +66,9 @@ const ButtomNavigation = () => {
           <BottomNavigationAction label={TaskState.ACTIVE} value={TaskState.ACTIVE} />
           <BottomNavigationAction label={TaskState.COMPLETED} value={TaskState.COMPLETED} />
         </BottomNavigation>
+        <Box sx={{ mr: '20px', display: 'flex', alignItems: 'end' }} >
+            <DeleteTaskButton onDelete={deletedComplited} />
+        </Box>
       </Paper>
     </Box>
   );

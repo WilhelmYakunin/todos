@@ -11,7 +11,6 @@ export interface ITask {
 
 export type TasksState = {
   tasks: ITask[];
-  tab: 0;
   taskInInput: string;
   incomletedTasksCount: number;
   isLoad: boolean;
@@ -19,19 +18,7 @@ export type TasksState = {
 };
 
 export const todosInitialState: TasksState = {
-  tasks: [
-    {
-      task_id: nanoid(),
-      description: 'Make test assigment',
-      isCompleted: false,
-    },
-    {
-      task_id: nanoid(),
-      description: 'Write test coverage',
-      isCompleted: true,
-    },
-  ],
-  tab: 0,
+  tasks: [],
   taskInInput: '',
   incomletedTasksCount: 0,
   isLoad: false,
@@ -42,9 +29,6 @@ export const todosSlice = createSlice({
   name: 'tasks',
   initialState: todosInitialState,
   reducers: {
-    handleTabChange: (state, { payload }) => {
-      state.tab = payload;
-    },
     handleTaskInput: (state, { payload }) => {
       if (!isString(payload)) {
         state.error = TaskInputLng.NOT_STRING_ERROR;
@@ -91,7 +75,6 @@ export const todosSlice = createSlice({
 });
 
 export const {
-  handleTabChange,
   addTask,
   handleTaskInput,
   handleInputClear,

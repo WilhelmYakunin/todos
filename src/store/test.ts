@@ -41,7 +41,7 @@ describe('unit test of allTasks slice', () => {
       { ...state, ...{ taskInInput: taskDescription } },
       addTask()
     );
-    expect(slice.allTasks).toEqual([mockTaskUncompleted]);
+    expect(slice.tasks).toEqual([mockTaskUncompleted]);
     expect(slice.taskInInput).toEqual('');
   });
 
@@ -69,7 +69,7 @@ describe('unit test of allTasks slice', () => {
       { ...todosInitialState, ...{ allTasks: [mockTaskUncompleted] } },
       markTaskCompleted(mockId)
     );
-    expect(slice.allTasks).toEqual([mockTaskDone]);
+    expect(slice.tasks).toEqual([mockTaskDone]);
   });
 
   it('should handle completed tasks removal', () => {
@@ -80,7 +80,7 @@ describe('unit test of allTasks slice', () => {
       },
       removeCompletedTasks()
     );
-    expect(slice.allTasks).toEqual([mockTaskUncompleted]);
+    expect(slice.tasks).toEqual([mockTaskUncompleted]);
   });
 
   it('should handle load status', () => {
