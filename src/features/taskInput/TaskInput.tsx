@@ -14,7 +14,12 @@ const TaskInput = () => {
   const onInput = useCallback((e: ChangeEvent<HTMLInputElement>) => dispatch(handleTaskInput(e.target.value)), [dispatch]);
   const clearInput = useCallback(() => dispatch(handleInputClear()), [dispatch]);
   const onAddTask = useCallback(() => dispatch(addTask()), [dispatch]);
-  const onEnterTask = useCallback((e: KeyboardEvent) => (e.key === 'Enter') && dispatch(addTask()), [dispatch]);
+  const onEnterTask = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      dispatch(addTask());
+    }
+  }, [dispatch]);
 
   return (
     <Box>

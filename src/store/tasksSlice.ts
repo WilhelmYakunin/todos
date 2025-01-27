@@ -41,7 +41,7 @@ export const todosSlice = createSlice({
       state.taskInInput = todosInitialState.taskInInput;
     },
     addTask: (state) => {
-      if (!isString(state.taskInInput) || state.taskInInput.length === 0) {
+      if (state.taskInInput.length === 0) {
         state.error = TaskInputLng.NOT_STRING_ERROR;
         return;
       }

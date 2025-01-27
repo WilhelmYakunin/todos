@@ -45,14 +45,10 @@ describe('unit test of allTasks slice', () => {
     expect(slice.taskInInput).toEqual('');
   });
 
-  it('should handle adding text', () => {
+  it('should handle input text', () => {
     const taskDescription = 'Run the test';
-    const additional = 'additional';
-    const slice = reducer(
-      { ...state, ...{ taskInInput: taskDescription } },
-      handleTaskInput(additional)
-    );
-    expect(slice.taskInInput).toEqual(taskDescription + additional);
+    const slice = reducer(state, handleTaskInput(taskDescription));
+    expect(slice.taskInInput).toEqual(taskDescription);
   });
 
   it('should handle clear task filed', () => {
@@ -66,7 +62,7 @@ describe('unit test of allTasks slice', () => {
 
   it('should handle task update to completed', () => {
     const slice = reducer(
-      { ...todosInitialState, ...{ allTasks: [mockTaskUncompleted] } },
+      { ...todosInitialState, ...{ tasks: [mockTaskUncompleted] } },
       markTaskCompleted(mockId)
     );
     expect(slice.tasks).toEqual([mockTaskDone]);
@@ -76,7 +72,7 @@ describe('unit test of allTasks slice', () => {
     const slice = reducer(
       {
         ...todosInitialState,
-        ...{ allTasks: [mockTaskUncompleted, mockTaskDone] },
+        ...{ tasks: [mockTaskUncompleted, mockTaskDone] },
       },
       removeCompletedTasks()
     );
@@ -95,8 +91,11 @@ describe('unit test of allTasks slice', () => {
   });
 
   it('should handle input not string error', () => {
-    const errorIsNumber = 1;
-    const sliceCaseNotNumber = reducer(state, handleTaskInput(errorIsNumber));
+    const errorIsEmty = '';
+    const sliceCaseNotNumber = reducer(
+      { ...state, ...{ taskInInput: errorIsEmty } },
+      addTask()
+    );
     expect(sliceCaseNotNumber.error).toEqual(TaskInputLng.NOT_STRING_ERROR);
   });
 
