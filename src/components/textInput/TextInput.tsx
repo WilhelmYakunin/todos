@@ -9,17 +9,19 @@ import isString from 'lodash.isstring';
 
 const { PLACEHOLDER, ON_ERROR } = TaskInputLng
 
- const TaskInput = ({ onEnter, onChange, taskInInput, errorText, onClear, onAddtask } : 
+ const TaskInput = ({ onEnter, onChange, taskInInput, errorText, onClear, onAddtask, autoFocus } : 
     { onChange: ChangeEventHandler<HTMLInputElement>, 
       taskInInput: string, 
       errorText: null | string,
       onEnter: KeyboardEventHandler<HTMLInputElement>,
       onClear: MouseEventHandler<HTMLButtonElement>, 
-      onAddtask: MouseEventHandler<HTMLButtonElement> }) => {
+      onAddtask: MouseEventHandler<HTMLButtonElement>
+      autoFocus?: boolean }) => {
 
   return (
     <>
       <Input 
+        autoFocuc={autoFocus}
         type='text'
         onKeyDown={onEnter}
         onChange={onChange} 

@@ -25,6 +25,7 @@ const TaskInput = () => {
     <Box>
         <FormControl onSubmit={onAddTask} sx={{ margin: '10px auto', display: 'flex', flexDirection: 'column', width: '30%', gap: '10px' }}>
             <TextInput 
+                autoFocus={true}
                 taskInInput={inputValue} 
                 onChange={(e) => onInput(e)} 
                 errorText={inputError} 
