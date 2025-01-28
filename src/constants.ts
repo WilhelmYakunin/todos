@@ -26,5 +26,4 @@ export const TaskState: constnat = {
   REST: ' tasks left',
   COMPLETED: 'Completed',
   ACTIVE: 'Active',
-  DELETED: 'Clear completed',
 };

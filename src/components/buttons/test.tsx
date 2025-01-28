@@ -20,7 +20,7 @@ test('render add task button', async () => {
 });
 
 test('render mark done button', async () => {
-  render(<MarkCompleterButton onMarkComplete={() => {}} />);
+  render(<MarkCompleterButton disabled={false} onMarkComplete={() => {}} />);
 
   expect(screen.getByText(MARK_DONE)).toBeTruthy();
 });

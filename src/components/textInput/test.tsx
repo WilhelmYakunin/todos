@@ -20,7 +20,7 @@ test('render text input', () => {
     const state = reducer(undefined, { type: 'unknown' });
     
     const { container } = render(<TextInput 
-        taskInInput={state.taskInInput} 
+        taskInInput={state.taskInput} 
         onEnter={(e) => {
           e.preventDefault()
           addTask()
@@ -37,5 +37,5 @@ test('render text input', () => {
         onChange={handleTaskInput} />);
 
     expect(screen.getAllByPlaceholderText(PLACEHOLDER)).toBeTruthy();
-    expect(container.querySelector('input')?.value).toBe(todosInitialState.taskInInput);
+    expect(container.querySelector('input')?.value).toBe(todosInitialState.taskInput);
 });

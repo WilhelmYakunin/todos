@@ -38,17 +38,17 @@ describe('unit test of allTasks slice', () => {
   it('should handle a task being added to task list', () => {
     const taskDescription = 'Run the test';
     const slice = reducer(
-      { ...state, ...{ taskInInput: taskDescription } },
+      { ...state, ...{ taskInput: taskDescription } },
       addTask()
     );
     expect(slice.tasks).toEqual([mockTaskUncompleted]);
-    expect(slice.taskInInput).toEqual('');
+    expect(slice.taskInput).toEqual('');
   });
 
   it('should handle input text', () => {
     const taskDescription = 'Run the test';
     const slice = reducer(state, handleTaskInput(taskDescription));
-    expect(slice.taskInInput).toEqual(taskDescription);
+    expect(slice.taskInput).toEqual(taskDescription);
   });
 
   it('should handle clear task filed', () => {
@@ -57,7 +57,7 @@ describe('unit test of allTasks slice', () => {
       { ...state, ...{ taskInInput: taskDescription } },
       handleInputClear()
     );
-    expect(slice.taskInInput).toEqual(todosInitialState.taskInInput);
+    expect(slice.taskInput).toEqual(todosInitialState.taskInput);
   });
 
   it('should handle task update to completed', () => {
