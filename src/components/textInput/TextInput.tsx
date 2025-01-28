@@ -21,7 +21,7 @@ const { PLACEHOLDER, ON_ERROR } = TaskInputLng
   return (
     <>
       <Input 
-        autoFocuc={autoFocus}
+        autoFocus={autoFocus}
         type='text'
         onKeyDown={onEnter}
         onChange={onChange} 
