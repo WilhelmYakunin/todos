@@ -1,11 +1,18 @@
 import { useCallback, ChangeEvent } from 'react';
 import Box from '@mui/material/Box';
 import TextInput from '../../components/textInput/TextInput';
-
+import AddTaskButton from '../../components/buttons/addTaskButton';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ClearButton from '../../components/buttons/ClearButton';
 import { handleInputClear, handleTaskInput, addTask } from '../../store/tasksSlice';
 import { useAppDispatch, useTypedSelector } from '../../store/store';
 import { getAllTasksError, getTaskInInput } from '../../store/selectors';
-import { FormControl } from '@mui/material';
+import { Button, FormControl } from '@mui/material';
+
+import { cn } from '@bem-react/classname';
+import './styles.css';
+
+const bem = cn('taskInput');
 
 const TaskInput = () => {
   const inputValue = useTypedSelector(getTaskInInput);
@@ -22,18 +29,22 @@ const TaskInput = () => {
   }, [dispatch]);
 
   return (
-    <Box>
-        <FormControl onSubmit={onAddTask} sx={{ margin: '10px auto', display: 'flex', flexDirection: 'column', width: '30%', gap: '10px' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'center', m: '10px 0px' }}>
+        <FormControl 
+          className={bem('inputWrapper')}
+          onSubmit={onAddTask}>
             <TextInput 
                 autoFocus={true}
                 taskInInput={inputValue} 
                 onChange={(e) => onInput(e)} 
                 errorText={inputError} 
-                onClear={clearInput}
                 onEnter={onEnterTask}
-                onAddtask={onAddTask} />          
+                endDecorator={<>
+                  <ClearButton className={bem('clearButton')} onClear={clearInput} />
+                  <AddTaskButton className={bem('addTaskButton')} onAddTask={onAddTask} />
+                  <Button className={bem('addTaskButtonMobile')} onClick={onAddTask}><AddCircleIcon /></Button>
+                </>} />          
         </FormControl>
-        
     </Box>
   );
 }

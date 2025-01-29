@@ -17,6 +17,10 @@ import { useAppDispatch, useTypedSelector } from '../../store/store';
 import { getAllTasks } from '../../store/selectors';
 import { markTaskCompleted, removeCompletedTasks } from '../../store/tasksSlice';
 
+import { cn } from '@bem-react/classname';
+import './styles.css';
+
+const bem = cn('buttomNavigation');
 
 const ButtomNavigation = () => {
     const tasks = useTypedSelector(getAllTasks)
@@ -56,12 +60,13 @@ const ButtomNavigation = () => {
         </Paper>
         </ListItemText>)}
       </List>
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', alignItems: 'center' }} elevation={3}>
-        <Box sx={{ ml: '20px', display: 'flex', alignItems: 'center' }} >
+      <Paper className={bem('controllWrapper')} sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: 'flex', alignItems: 'center' }} elevation={3}>
+        <Box className={bem('badge')} sx={{ ml: '20px', display: 'flex', alignItems: 'center' }} >
             <Badge badgeContent={tasksRemainCount} color="primary" max={999} showZero /> 
             <Typography ml={'15px'}>{TaskState.REST}</Typography>
         </Box>
         <BottomNavigation
+          className={bem('controllButtons')}
           sx={{margin: 'auto'}}  
           showLabels
           value={activeButton}

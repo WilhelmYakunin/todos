@@ -1,0 +1,19 @@
+.buttomNavigation-controllWrapper {
+    @media(max-width: 420px) {
+        padding: 10px;
+        flex-direction: column;
+    }
+}
+
+.buttomNavigation-badge {
+    @media(max-width: 420px) {
+        height: 0px;
+        visibility: hidden;
+    }
+}
+
+.buttomNavigation-controllButtons {
+    @media(max-width: 420px) {
+        width: 100%;
+    }
+}

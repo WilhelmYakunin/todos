@@ -1,22 +1,19 @@
-import { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler, ReactNode } from 'react';
 import Input from '@mui/joy/Input';
 import FormHelperText from '@mui/joy/FormHelperText';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { TaskInputLng } from '../../constants';
-import ClearButton from '../buttons/ClearButton';
-import AddTaskButton from '../buttons/addTaskButton';
 import isString from 'lodash.isstring';
 
 const { PLACEHOLDER, ON_ERROR } = TaskInputLng
 
- const TaskInput = ({ onEnter, onChange, taskInInput, errorText, onClear, onAddtask, autoFocus } : 
+ const TaskInput = ({ onEnter, onChange, taskInInput, errorText, autoFocus, endDecorator } : 
     { onChange: ChangeEventHandler<HTMLInputElement>, 
       taskInInput: string, 
       errorText: null | string,
       onEnter: KeyboardEventHandler<HTMLInputElement>,
-      onClear: MouseEventHandler<HTMLButtonElement>, 
-      onAddtask: MouseEventHandler<HTMLButtonElement>
-      autoFocus?: boolean }) => {
+      autoFocus?: boolean
+      endDecorator?: ReactNode }) => {
 
   return (
     <>
@@ -28,10 +25,7 @@ const { PLACEHOLDER, ON_ERROR } = TaskInputLng
         value={taskInInput} 
         placeholder={PLACEHOLDER} 
         error={isString(errorText)} 
-        endDecorator={<>
-                        <ClearButton onClear={onClear} />
-                        <AddTaskButton onAddTask={onAddtask} />
-                      </>}        
+        endDecorator={<>{endDecorator}</>}        
       />
       <FormHelperText>
         {errorText && <>

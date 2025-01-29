@@ -1,11 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import TextInput from './TextInput';
-import reducer, {
-  addTask,
-    handleInputClear,
-    todosInitialState,
-    handleTaskInput,
-  } from '../../store/tasksSlice';
+import reducer, { addTask, todosInitialState, handleTaskInput } from '../../store/tasksSlice';
   
 import { TaskInputLng } from '../../constants';
   
@@ -25,16 +20,9 @@ test('render text input', () => {
           e.preventDefault()
           addTask()
       }}
-        onClear={(e) => {
-            e.preventDefault()
-            handleInputClear()
-        }} 
-        onAddtask={(e) => {
-          e.preventDefault()
-          addTask()
-      }} 
         errorText={state.error} 
-        onChange={handleTaskInput} />);
+        onChange={handleTaskInput} 
+      />);
 
     expect(screen.getAllByPlaceholderText(PLACEHOLDER)).toBeTruthy();
     expect(container.querySelector('input')?.value).toBe(todosInitialState.taskInput);
